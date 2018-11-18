@@ -9,4 +9,6 @@ if [ -s /etc/exports ]
    yum -y install rstudio-server-rhel-1.1.463-x86_64.rpm
    echo $'PATH = /opt/sge/bin:/opt/sge/bin/lx-amd64:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/home/centos/.local/bin:/home/centos/bin\nSGE_ROOT = /opt/sge' > /home/centos/.Renviron
    chmod +777 /home/centos/.Renviron
+   echo 'options(clustermq.scheduler = "sge", clustermq.template="~/sge.tmpl")' > /home/centos/.Rprofile
+   chmod +777 /home/centos/.Rprofile
 fi
