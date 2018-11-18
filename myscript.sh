@@ -11,4 +11,7 @@ if [ -s /etc/exports ]
    chmod +777 /home/centos/.Renviron
    echo 'options(clustermq.scheduler = "sge", clustermq.template="~/sge.tmpl")' > /home/centos/.Rprofile
    chmod +777 /home/centos/.Rprofile
+   cd /home/centos/
+   wget https://raw.githubusercontent.com/rothenhaeusler/rothenhaeusler.github.io/master/sge.tmpl
+   chmod +777 /home/centos/sge.tmpl
 fi
