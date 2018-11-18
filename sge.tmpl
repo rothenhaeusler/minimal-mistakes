@@ -1,22 +1,10 @@
-#!/bin/bash
+#$ -N {{ job_name }}               # job name
+#$ -q 'all.q'                      # submit to queue named "default"
+#$ -j y                            # combine stdout/error in one file
+#$ -o {{ log_file | /dev/null }}   # output file
+#$ -cwd                            # use pwd as work dir
+#$ -V                              # use environment variable
+#$ -t 1-{{ n_jobs }}               # submit jobs as array
 
-## The name of the job, can be anything, simply used when displaying the list of running jobs
-#$ -N <%= job.name %>
-
-## Combining output/error messages into one file
-#$ -j y
-
-## Giving the name of the output log file
-#$ -o <%= log.file %>
-
-## One needs to tell the queue system to use the current directory as the working directory
-## Or else the script may fail as it will execute in your top level home directory /home/username
-#$ -cwd
-
-## Use environment variables
-#$ -V
-
-## Use correct queue
-#$ -q 'all.q'
-
-Rscript -e 'batchtools::doJobCollection(<filename>)'
+ulimit -v $(( 1024 * {{ memory | 4096 }} ))
+R --no-save --no-restore -e 'clustermq:::worker("{{ master }}")'
